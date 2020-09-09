@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sop">
+	
+	<!-- 시도 조회 -->
+	<select id="getSidoList" parameterType="hashmap" resultType="hashmap">
+		SELECT		
+						sido_cd
+					,   sido_nm
+					,   x_coor
+					,   y_coor
+		FROM    	SRV_PG_SIDOBORD
+		WHERE   	base_year = #{base_year}
+	</select>
+
+	<!-- 시군구 조회 -->
+	<select id="getSggList" parameterType="hashmap" resultType="hashmap">
+		SELECT  	
+						sgg_cd
+					,   sgg_nm
+					,   x_coor
+					,   y_coor
+		FROM    	SRV_PG_SGGBORD
+		WHERE   	base_year = #{base_year}
+		AND     	sido_cd = #{sido_cd}
+		ORDER BY sgg_nm
+	</select>
+
+	<!-- 읍면동 조회 -->
+	<select id="getAdmList" parameterType="hashmap" resultType="hashmap">
+		SELECT 	
+						emdong_cd
+					,   emdong_nm
+					,   x_coor
+					,   y_coor
+		FROM    	SRV_PG_ADMBORD
+		WHERE   	base_year = #{base_year}
+		AND     	sido_cd = #{sido_cd}
+		AND     	sgg_cd = #{sgg_cd}
+		ORDER BY emdong_nm
+	</select>
+
+	
+</mapper>
